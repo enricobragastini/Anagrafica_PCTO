@@ -1,3 +1,33 @@
+<?php
+   include("php/config.php");
+   session_start();
+
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($db,$_POST['password']);
+
+      $sql = "SELECT permissions FROM users WHERE username = '$myusername' and password = '$mypassword'";
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $active = $row['active'];
+
+      $count = mysqli_num_rows($result);
+
+      if($count == 1) {
+         $_SESSION['login_user'] = $myusername;
+         if($row[permissions]=="admin"){
+           header("location: admin.php");
+         }
+         else {
+           header("location: welcome.php");
+         }
+      }else {
+         $error = "Username o password errati! Riprova!";
+      }
+   }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,20 +82,25 @@
             <h6>Inserisci le tue credenziali</h6>
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
-              <input id="username" type="text" class="validate" name="username">
+              <input id="username" type="text" class="validate" name="username" value="root">
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="material-icons prefix">lock</i>
-              <input id="password" type="password" class="validate" name="password">
+              <input id="password" type="password" class="validate" name="password" value=pcto2020>
               <label for="password">Password</label>
             </div>
           </div>
           <div class="row">
             <div class="col s12">
               <!-- Testo da mostrare in caso di credenziali errate -> DA FARE IN PHP -->
+              <?php
+                if ($error){
+                  echo '<p class="red-text">'. $error . '</p>';
+                }
+              ?>
               <!-- <p class="red-text">Credenziali errate, riprova!</p> -->
               <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #459f47;">ACCEDI
                 <i class="material-icons right">send</i>
