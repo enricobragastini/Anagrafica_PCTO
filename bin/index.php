@@ -77,7 +77,7 @@
     </form>
   </div>
 
-  <div class="row center">
+  <div class="row center animated fadeInDown delay-1s">
     <div class="col s12">
       <p>&copy; 5BI 2019/2020 - Enrico Bragastini, Loris Pesarin</p>
     </div>
