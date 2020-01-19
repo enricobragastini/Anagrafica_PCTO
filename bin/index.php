@@ -14,17 +14,17 @@
   <script type="text/javascript" src="js/lib/materialize.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Custom CSS -->
-  <link type="text/css" rel="stylesheet" href="css/mystyle.css"  media="screen,projection"/>
+  <!-- Custom CSS (parametro con numero random per forzare il reload) -->
+  <link type="text/css" rel="stylesheet" href="css/mystyle.css?<?php echo rand(0, 10000); ?>"  media="screen,projection"/>
 
   <!-- Animate CSS -->
-  <link type="text/css" rel="stylesheet" href="css/animate.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="css/lib/animate.css"  media="screen,projection"/>
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/png" href="img/business.png"/>
 </head>
 
-<body class="grey lighten-3">
+<body class="">
 
   <!-- NavBar -->
   <div class="navbar-fixed">
@@ -79,7 +79,7 @@
 
   <div class="row center animated fadeInDown delay-1s">
     <div class="col s12">
-      <p>&copy; 5BI 2019/2020 - Enrico Bragastini, Loris Pesarin</p>
+      <p class="white-text">&copy; 5BI 2019/2020<br>Enrico Bragastini & Loris Pesarin</p>
     </div>
   </div>
 
