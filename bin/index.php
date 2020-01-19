@@ -79,7 +79,7 @@
 
   <div class="row center">
     <div class="col s12">
-      <p>&copy; <?php echo date("Y"); ?> - Enrico Bragastini, Loris Pesarin</p>
+      <p>&copy; 5BI 2019/2020 - Enrico Bragastini, Loris Pesarin</p>
     </div>
   </div>
 
