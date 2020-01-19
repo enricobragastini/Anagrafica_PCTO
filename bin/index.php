@@ -28,11 +28,13 @@
          $_SESSION['permissions'] = $row["permissions"];
          if($row[permissions]=="admin"){
            header("location: admin.php");
+           die();
          }
          else {
            header("location: welcome.php");
+           die();
          }
-      }else {
+      } else {
          $error = "Username o password errati! Riprova!";
       }
    }
