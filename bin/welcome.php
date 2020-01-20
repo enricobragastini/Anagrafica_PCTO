@@ -1,5 +1,13 @@
 <?php
-   include('php/session.php');
+session_start();
+if(isset($_SESSION["permissions"]) && $_SESSION["permissions"] == "admin"){
+  header("location:/bin/admin.php");
+  die();
+}
+if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"])){
+  header("location:/bin/index.php");
+  die();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +50,7 @@
     <div class="box white z-depth-3 center" id="content">
       <h4 class="animated bounceIn">Benvenuto</h4>
       <?php
-        echo '<p class="animated bounceIn delay-500ms">Utente: '. $login_session.'</p>';
+        echo '<p class="animated bounceIn delay-500ms">Utente: '. $_SESSION["permissions"].'</p>';
       ?>
       <div class="divider"></div>
       <h6><a href = "php/logout.php">Logout</a></h6>

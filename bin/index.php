@@ -1,43 +1,37 @@
 <?php
-   include("php/config.php");
-   session_start();
+session_start();
+include("php/methods.php");
 
-   if(isset($_SESSION['login_user'])){
-     if($SESSION["permissions"] == "admin"){
-       header("location:/bin/admin.php");
-     } else {
-       header("location:/bin/welcome.php");
-     }
-      die();
-   }
+if(isset($_SESSION['username'])){
+  if($SESSION["permissions"] == "admin"){
+    header("location:/bin/admin.php");
+    die();
+  } else {
+    header("location:/bin/welcome.php");
+    die();
+  }
+}
 
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+  if(isset($_POST["username"]) && isset($_POST["password"])){
+    $myusername = $_POST['username'];
+    $mypassword = $_POST['password'];
 
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($db,$_POST['password']);
-
-      $sql = "SELECT permissions FROM users WHERE username = '$myusername' and password = '$mypassword'";
-      $result = mysqli_query($db,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-
-      $count = mysqli_num_rows($result);
-
-      if($count == 1) {
-         $_SESSION['login_user'] = $myusername;
-         $_SESSION['permissions'] = $row["permissions"];
-         if($row[permissions]=="admin"){
-           header("location: admin.php");
-           die();
-         }
-         else {
-           header("location: welcome.php");
-           die();
-         }
+    if(loginCheck($myusername, $mypassword)){
+      $_SESSION["username"] = $myusername;
+      $_SESSION["permissions"] = getPermissions($myusername);
+      if($_SESSION['permissions'] == "admin"){
+        header("location: admin.php");
+        die();
       } else {
-         $error = "Username o password errati! Riprova!";
+        header("location: welcome.php");
+        die();
       }
-   }
+    } else {
+      $error = "Username o password errati! Riprova!";
+    }
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -94,14 +88,14 @@
             <h6>Inserisci le tue credenziali</h6>
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
-              <input id="username" type="text" class="validate" name="username" value=>
+              <input id="username" type="text" class="validate" name="username">
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="material-icons prefix">lock</i>
-              <input id="password" type="password" class="validate" name="password" value=>
+              <input id="password" type="password" class="validate" name="password">
               <label for="password">Password</label>
             </div>
           </div>
@@ -109,9 +103,9 @@
             <div class="col s12">
               <!-- Testo da mostrare in caso di credenziali errate -> DA FARE IN PHP -->
               <?php
-                if ($error){
-                  echo '<p class="red-text">'. $error . '</p>';
-                }
+              if ($error){
+                echo '<p class="red-text">'. $error . '</p>';
+              }
               ?>
               <!-- <p class="red-text">Credenziali errate, riprova!</p> -->
               <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #459f47;">ACCEDI
