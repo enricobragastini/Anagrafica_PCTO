@@ -77,3 +77,12 @@ a.brand-logo{
 .input-field .prefix.active {
   color: #459f47 !important;
 }
+
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid red;
+  box-shadow: 0 1px 0 0 red;
+}
+
+button{
+  background-color: #459f47 !important;
+}
