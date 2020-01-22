@@ -91,14 +91,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <h6>Inserisci le tue credenziali</h6>
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
-              <input id="username" type="text" class="validate" name="username">
+              <input id="username" type="text" name="username">
               <label for="username">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="material-icons prefix">lock</i>
-              <input id="password" type="password" class="validate" name="password">
+              <input id="password" type="password" name="password">
               <label for="password">Password</label>
             </div>
           </div>
@@ -124,6 +124,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   <script type="text/javascript">
   $(document).ready(function(){
     $("#loginForm").submit(function(event){
+      $("#username").removeClass("invalid");
+      $("#password").removeClass("invalid");
       event.preventDefault();
       var usernamePHP = $("#username").val();
       var passwordPHP = $("#password").val();
