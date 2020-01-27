@@ -6,6 +6,7 @@ matrix_reduct = []
 aziende = []
 mega_dict=dict()
 indirizzi=["Informatica","Telecomunicazioni","Logistica","Elettronica","Costruzione del mezzo"]
+sql=open("aziende.sql","w")
 
 
 def corrispondence(ragione1, ragione2):
@@ -36,7 +37,7 @@ for item in matrix_alunni:
                             "comune":None,
                             "provincia":item[4],
                             "nazione":None,
-                            "indirizzo" : [],
+                            "indirizzo" : None,
                             "cap":None,
                             "telefono":item[3],
                             "mail":item[2],
@@ -57,14 +58,23 @@ for keys,values in mega_dict.items():
             mega_dict[keys]["tipo"]=item[1]
             mega_dict[keys]["comune"]= item[3]
             mega_dict[keys]["nazione"]= item[5]
-            mega_dict[keys]["indirizzo"].append(item[6])
+            mega_dict[keys]["indirizzo"]=item[6]
             mega_dict[keys]["cap"]= item[7]
             mega_dict[keys]["sito"] = item[10]
             mega_dict[keys]["n_dipendenti"] = item[11]
             mega_dict[keys]["data_convenzione"] = item[12]
             mega_dict[keys]["cod_ateco"] = item[14]
-
+query = "INSERT INTO aziende (ragione_sociale, tipo, comune, provincia, nazione, indirizzo, cap, telefono, " \
+                "mail, sito, n_dipendenti, data_convenzione, cod_ateco) VALUES ({});\n"
 for keys,values in mega_dict.items():
-    print("Nome: "+keys)
+    queryValues = ""
     for key,value in values.items():
-        print("\t"+str(key)+": "+str(value))
+        try:
+            if value!=None and value!="":
+                queryValues=queryValues+'"'+value+'"'+", "
+            else:
+                queryValues = queryValues + "NULL" + ", "
+        except:
+            pass
+    sql.write(query.format(queryValues.rstrip(", ")))
+sql.close()
