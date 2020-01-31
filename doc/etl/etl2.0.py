@@ -22,7 +22,7 @@ def indirizzo(string):
     string=string[string.find(".")+2:].lower()
     for item in indirizzi:
         if corrispondence(string,item)>=0.6:
-            return indirizzi.index(item)
+            return indirizzi.index(item)+1
     return "NULL"
 def mansione(string):
     string=string[:5]
@@ -80,8 +80,8 @@ for keys,values in mega_dict.items():
             mega_dict[keys]["indirizzo"]=item[6]
             mega_dict[keys]["cap"]= item[7]
             mega_dict[keys]["sito"] = item[10]
-            mega_dict[keys]["n_dipendenti"] = item[11]
-            mega_dict[keys]["data_convenzione"] = item[12]
+            mega_dict[keys]["n_dipendenti"] = int(item[11]) if item[11] != "" else None
+            mega_dict[keys]["data_convenzione"] = item[12][6:] + "-" + item[12][3:5] + "-" + item[12][:2]if item[12] != "" else None
             mega_dict[keys]["cod_ateco"] = item[14]
 
 for keys,values in mega_dict.items():
@@ -89,28 +89,31 @@ for keys,values in mega_dict.items():
     for key,value in values.items():
         print("\t"+str(key)+": "+str(value))
 
-# query = "INSERT INTO aziende (id, ragione_sociale, tipo, comune, provincia, nazione, indirizzo, cap, telefono, " \
-#                 "mail, sito, n_dipendenti, data_convenzione, cod_ateco) VALUES ({});\n"
-#
-# for keys,values in mega_dict.items():
-#     queryValues = ""
-#     for key,value in values.items():
-#         try:
-#             if value!=None and value!="":
-#                 queryValues=queryValues+'"'+value+'"'+", "
-#             else:
-#                 queryValues = queryValues + "NULL" + ", "
-#         except:
-#             pass
-#     aziendeSql.write(query.format(queryValues.rstrip(", ")))
-# aziendeSql.close()
-#
+query = "INSERT INTO aziende (id, ragione_sociale, tipo, comune, provincia, nazione, indirizzo, cap, telefono, " \
+                "mail, sito, n_dipendenti, data_convenzione, cod_ateco) VALUES ({});\n"
+
+for keys,values in mega_dict.items():
+    queryValues = ""
+    for key,value in values.items():
+        try:
+            if value!=None and value!="" and not isinstance(value, list):
+                if isinstance(value, int):
+                    queryValues = queryValues + '' + str(value) + '' + ", "
+                else:
+                    queryValues=queryValues+'"'+str(value)+'"'+", "
+            elif not isinstance(value, list):
+                queryValues = queryValues + "NULL" + ", "
+        except:
+            pass
+    aziendeSql.write(query.format(queryValues.rstrip(", ")))
+aziendeSql.close()
+
 query = "INSERT INTO indirizzi_richiesti (id_azienda, id_indirizzo) VALUES ({});\n"
 
 for keys in mega_dict.keys():
     queryValues = ""
     for item in mega_dict[keys]["indirizzo_studio"]:
-        queryValues="'"+str(mega_dict[keys]["id"])+"', "+"'"+str(item)+"'"
+        queryValues=""+str(mega_dict[keys]["id"])+", "+""+str(item)+""
         indirizziSql.write(query.format(queryValues))
         queryValues = ""
 indirizziSql.close()
@@ -121,10 +124,22 @@ for keys in mega_dict.keys():
     queryValues = ""
     for item in mega_dict[keys]["mansione"]:
         if value != None and value != "":
-            queryValues="'"+str(mega_dict[keys]["id"])+"', "+"'"+item+"'"
+            queryValues=""+str(mega_dict[keys]["id"])+", "+"'"+item+"'"
             qualificheSql.write(query.format(queryValues))
         else:
-            queryValues = "'" + str(mega_dict[keys]["id"]) + "', " + "'" + "NULL" + "'"
+            queryValues = "" + str(mega_dict[keys]["id"]) + ", " + "'" + "NULL" + "'"
             qualificheSql.write(query.format(queryValues))
         queryValues = ""
 qualificheSql.close()
+# select i.descrizione, i.datainizio, p.cognome from interventi i
+# join personale p on p.codoce=i.codPersonale
+# where i.dataine is NULL
+
+# select c.ragione_sociale, sum(i.importo) from Clienti c
+# join Contratti i on i.codCliente=c.codice
+# group by c.ragione_sociale
+
+# select c.ragione_sociale from Clienti c
+# join interventi i on i.codClienti=c.codice
+# group by c.ragione_sociale
+# where count(interventi.id)>5

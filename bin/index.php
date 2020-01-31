@@ -3,30 +3,38 @@ session_start();
 include("php/methods.php");
 
 if(isset($_SESSION['username'])){
+  // Redirect dell'utente se ha già effettuato il login
+  // Non si vuole mostrare la pagina di login ha chi è già autenticato
   if($SESSION["permissions"] == "admin"){
-    header("location:/bin/admin.php");
+    header("location: /bin/admin.php");
     die();
   } else {
-    header("location:/bin/welcome.php");
+    header("location: /bin/welcome.php");
     die();
   }
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Risposta alla chiamata Ajax per autenticare l'utente
   if(isset($_POST["login"]) && $_POST["login"] == 1){
     if(isset($_POST["username"]) && isset($_POST["password"])){
       $myusername = $_POST['username'];
       $mypassword = $_POST['password'];
 
-      if(loginCheck($myusername, $mypassword)){
+      if(loginCheck($myusername, $mypassword)){   // Credenziali corrette
         $_SESSION["username"] = $myusername;
-        $_SESSION["permissions"] = getPermissions($myusername);
+        $userData = getUserDeta($_SESSION["username"]);
+        $_SESSION["permissions"] = $userData["permissions"];
+        $_SESSION["nome"] = $userData["nome"];
+        $_SESSION["cognome"] = $userData["cognome"];
+
         if($_SESSION['permissions'] == "admin"){
           exit("admin.php");
         } else {
           exit("welcome.php");
         }
-      } else {
+      }
+      else {  //Credenziali errate
         exit("0");
       }
     }
@@ -126,14 +134,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $("#loginForm").submit(function(event){
       $("#username").removeClass("invalid");
       $("#password").removeClass("invalid");
+
+      // Evito l'azione default del submit
       event.preventDefault();
+
       var usernamePHP = $("#username").val();
       var passwordPHP = $("#password").val();
       if(usernamePHP == "" || passwordPHP == ""){
         $("#loginInfoMsg").html("Completa tutti i campi!");
         $("#username").addClass("invalid");
         $("#password").addClass("invalid");
-      } else {
+      }
+      else {      // Se ho delle credenziali, le verifico con una chiamata ajax
         $.ajax({
           type: "POST",
           url: "index.php",
@@ -144,16 +156,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           },
           dataType: "text",
           success: function(risposta){
-            if(risposta == "0"){
+            if(risposta == "0"){    // Credenziali errate= error message
               $("#loginInfoMsg").html("Credenziali errate! Riprova!");
               $("#username").addClass("invalid");
               $("#password").addClass("invalid");
             }
-            else {
+            else {                  // Credenziali corrette= redirect
               window.location.href = risposta;
             }
           },
-          error: function(){
+          error: function(){        // Errore generico nel contattare il server
             $("loginInfoMsg").html("<p class=\"red-text\">Ops... C'è stato un errore nel contattare il server</p>");
           }
         });
