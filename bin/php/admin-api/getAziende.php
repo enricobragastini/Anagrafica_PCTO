@@ -26,9 +26,9 @@ if(isset($_POST["filters"])){
       $query .= " AND ";
       $i++;
     }
-    // echo "___".$query."___";
   }
 }
+
 echo json_encode(getAziendeBasic($query));
 
 

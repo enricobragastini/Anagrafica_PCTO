@@ -1,13 +1,12 @@
 function detectMobile() {
-  if( navigator.userAgent.match(/Android/i)
-  || navigator.userAgent.match(/webOS/i)
-  || navigator.userAgent.match(/iPhone/i)
-  || navigator.userAgent.match(/iPad/i)
-  || navigator.userAgent.match(/iPod/i)
-  || navigator.userAgent.match(/BlackBerry/i)
-  || navigator.userAgent.match(/Windows Phone/i)
-  || (window.innerWidth <= 800 && window.innerHeight <= 600)
-){
+  if(window.innerWidth <= 800 || window.innerHeight <= 600
+   || navigator.userAgent.match(/Android/i)
+   || navigator.userAgent.match(/webOS/i)
+   || navigator.userAgent.match(/iPhone/i)
+   || navigator.userAgent.match(/iPad/i)
+   || navigator.userAgent.match(/iPod/i)
+   || navigator.userAgent.match(/BlackBerry/i)
+   || navigator.userAgent.match(/Windows Phone/i)){
   return true;
 } else {
   return false;
@@ -31,12 +30,22 @@ function setGridBySize(){
   }
 }
 
+// Alert closing mechanism
+$(document).ready(function(){
+  $("#closeAlertIcon").click(function(){
+    $(this).parent().addClass("animated fadeOut");
+    document.getElementById("adminAlert").addEventListener("animationend", function(){
+      $(this).hide();
+    });
+  });
+});
+
 $(document).ready(function(){
   $("#jsGrid").jsGrid({
     width: "100%",
 
     inserting: true,
-    editing: false,
+    editing: true,
     deleting: false,
     sorting: true,
     paging: true,

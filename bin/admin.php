@@ -65,7 +65,17 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 
     <div class="divider"></div>
 
-    <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="row animated fadeIn delay-500ms" id="adminAlert" style="margin-top: 1rem;">
+      <div class="col s10 offset-s1">
+        <div class="card-panel white-text" style="background-color: #232f34">
+          <i class="material-icons" id="closeAlertIcon" style="float: right; display: block; cursor: pointer;">close</i>
+          <h6 style="margin: 0px; margin-bottom: 4px; display: block">Ti presentiamo la pagina Admin!</h6>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 1rem; margin-bottom: 1rem;">
       <div class="col s12">
         <div id="jsGrid" class="animated fadeIn delay-500ms"></div>
       </div>

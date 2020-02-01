@@ -70,6 +70,11 @@ function getAziendeBasic($query){
   }
 }
 
+function startsWith($haystack, $needle){
+  $length = strlen($needle);
+  return (substr($haystack, 0, $length) === $needle);
+}
+
 function getAziendaData($id){
   $query = "SELECT * FROM aziende WHERE aziende.id=?";
   $conn = dbConnect();
@@ -82,6 +87,14 @@ function getAziendaData($id){
         $result[0][$key] = "N/A";
       }
     }
+    if(isset($result[0]["sito"])){
+      if(startsWith($result[0]["sito"], "http://")){
+        $result[0]["sito"] = str_replace("http://", "", $result[0]["sito"]);
+      }
+      if(startsWith($result[0]["sito"], "https://")){
+        $result[0]["sito"] = str_replace("https://", "", $result[0]["sito"]);
+      }
+    }
     return $result[0];
   } catch(PDOException $ex) {
     return false;
@@ -90,6 +103,19 @@ function getAziendaData($id){
 
 function getIndirizziStudio($id_azienda){
   $query = "SELECT titolo FROM indirizzi_studio i JOIN indirizzi_richiesti r on i.id=r.id_indirizzo JOIN aziende az on az.id=r.id_azienda WHERE az.id=?";
+  $conn = dbConnect();
+  try {
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array($id_azienda));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  } catch(PDOException $ex) {
+    return false;
+  }
+}
+
+function getMansioni($id_azienda){
+  $query = "SELECT mansioni.id id, mansioni.titolo titolo, mansioni.descrizione descrizione FROM mansioni JOIN qualifiche on qualifiche.id_mansione=mansioni.id JOIN aziende on aziende.id=qualifiche.id_azienda WHERE aziende.id=?";
   $conn = dbConnect();
   try {
     $stmt = $conn->prepare($query);

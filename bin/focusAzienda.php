@@ -12,7 +12,7 @@ if(isset($_GET["id"])){
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Speedy PCTO - ADMIN</title>
+  <title><?php echo $azienda["ragione_sociale"]; ?></title>
 
   <!-- Google icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -165,7 +165,17 @@ if(isset($_GET["id"])){
             <p><b>Sito web:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><a class="black-text tooltipped" data-position="bottom" data-tooltip="Clicca per aprire!" href="http://<?php echo $azienda["sito"] ?>" target="_blank"><?php echo $azienda["sito"] ?></a></p>
+            <?php
+            if($azienda["sito"] != "N/A"){
+              ?>
+              <p><a class="black-text tooltipped" data-position="bottom" data-tooltip="Clicca per aprire!" href="//<?php echo $azienda["sito"] ?>" target="_blank"><?php echo $azienda["sito"] ?></a></p>
+              <?php
+            } else {
+              ?>
+              <p><a class="black-text"><?php echo $azienda["sito"] ?></a></p>
+              <?php
+            }
+            ?>
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -186,6 +196,36 @@ if(isset($_GET["id"])){
               }
               ?>
             </ul>
+          </div>
+        </div>
+        <div class="divider yellow darken-3"></div>
+
+        <!-- Mansioni -->
+        <div class="row">
+          <div class="col s12">
+            <h5>MANSIONI ASSEGNATE</h5>
+          </div>
+        </div>
+        <div class="row center">
+          <div class="col s10 offset-s1 center">
+            <table class="striped centereds responsive-table highlight">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Titolo</th>
+                  <th>Descrizione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach (getMansioni($azienda["id"]) as $mansione): ?>
+                  <tr>
+                    <td><?php echo utf8_encode($mansione["id"]); ?></td>
+                    <td><?php echo utf8_encode($mansione["titolo"]); ?></td>
+                    <td><?php echo utf8_encode($mansione["descrizione"]); ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
