@@ -93,7 +93,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Login Form -->
     <form class="" action="index.php" method="post" id="loginForm">
+<<<<<<< HEAD
       <div class="row animated bounceInUp delay-500ms" style="margin-top: 20px; padding-bottom: 20px;">
+=======
+      <div class="row animated bounceInUp delay-500ms" style="margin-top: 20px;">
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
         <div class="col m6 offset-m3 s12">
           <div class="row">
             <h6>Inserisci le tue credenziali</h6>
@@ -162,7 +166,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               $("#password").addClass("invalid");
             }
             else {                  // Credenziali corrette= redirect
+<<<<<<< HEAD
               location.replace(risposta);
+=======
+              window.location.href = risposta;
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
             }
           },
           error: function(){        // Errore generico nel contattare il server

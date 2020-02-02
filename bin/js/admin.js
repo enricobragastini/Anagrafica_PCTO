@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function detectMobile() {
   if((window.innerWidth <= 700 && window.innerHeight <= 600)
   || navigator.userAgent.match(/Android/i)
@@ -90,6 +91,22 @@ $(document).ready(function(){
         if(filter["open"] !== undefined){
           delete filter["open"];
         }
+=======
+$(document).ready( function () {
+  $("#jsGrid").jsGrid({
+    width: "100%",
+
+    inserting: true,
+    editing: true,
+    sorting: true,
+    paging: false,
+    autoload: true,
+    selecting: true,
+    filtering: true,
+
+    controller: {
+      loadData: function(filter) {
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
         var d = $.Deferred();
         $.ajax({
           type: 'POST',
@@ -99,7 +116,10 @@ $(document).ready(function(){
             filters: filter,
           },
           success: function(response) {
+<<<<<<< HEAD
             setGridBySize();
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
             d.resolve(response);
           },
           error: function(e) {
@@ -120,6 +140,7 @@ $(document).ready(function(){
       { name: "ragione_sociale", title: "Ragione Sociale", type: "text", align: "center", autosearch: true},
       { name: "comune", title: "Comune", type: "text", align: "center", autosearch: true},
       { name: "indirizzo", title: "Indirizzo", type: "text", align: "center", autosearch: true},
+<<<<<<< HEAD
       { name: "open", title: "Apri", width: "3%", align: "center", itemTemplate: function(value, item){
         var url = "focusAzienda.php?id=" + item.id;
         return $("<a class=\"btn-floating btn-large waves-effect waves-light grey darken-4 btn-small\" target=\"_blank\" href=\""+url+"\"><i class=\"material-icons\">open_in_new</i></a>");}
@@ -135,3 +156,13 @@ $(document).ready(function(){
   }
 
 });
+=======
+      { title: "Apri", width: "2%", align: "center", itemTemplate: function(value, item){
+      var url = "focusAzienda.php?id=" + item.id;
+        return $("<a class=\"btn-floating btn-large waves-effect waves-light grey darken-4 btn-small\" target=\"_blank\" href=\""+url+"\"><i class=\"material-icons\">open_in_new</i></a>");
+      }},
+      { type: "control", align: "center", width: "3%"}
+    ]
+  });
+} );
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081

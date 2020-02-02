@@ -45,7 +45,11 @@ a.brand-logo{
 }
 #content{
   padding: 5px;
+<<<<<<< HEAD
   margin-top: 20px;
+=======
+  margin-top: 50px;
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
   margin-bottom: 10px;\
 }
 
@@ -104,6 +108,7 @@ a.brand-logo{
 
 button{
   background-color: #1b1b1b !important;
+<<<<<<< HEAD
 }
 .edit-button{
   width:48px;
@@ -125,4 +130,6 @@ button{
   background-color: #757de8 !important;
   position: relative;
   right: 38%;
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 }

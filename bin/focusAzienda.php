@@ -12,7 +12,11 @@ if(isset($_GET["id"])){
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
   <title><?php echo $azienda["ragione_sociale"]; ?></title>
+=======
+  <title>Speedy PCTO - ADMIN</title>
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 
   <!-- Google icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -31,8 +35,13 @@ if(isset($_GET["id"])){
   <!-- Custom CSS (parametro con numero random per forzare il reload) -->
   <link type="text/css" rel="stylesheet" href="css/mystyle.css?<?php echo rand(0, 10000); ?>"  media="screen,projection"/>
 
+<<<<<<< HEAD
   <!-- Custom Focus Javascript -->
   <script src="js/focusAzienda.js?<?php echo rand(0, 10000); ?>" charset="utf-8"></script>
+=======
+  <!-- Custom Admin Javascript -->
+  <!-- <script src="js/admin.js" charset="utf-8"></script> -->
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 
   <!-- JsGrid -->
   <link type="text/css" rel="stylesheet" href="css/lib/jsgrid.css"  media="screen,projection"/>
@@ -60,6 +69,7 @@ if(isset($_GET["id"])){
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
   });
+<<<<<<< HEAD
   <?php
   if(isset($_GET["id"])){
     echo "var aziendaId = " . $_GET["id"] . ";";
@@ -85,6 +95,8 @@ if(isset($_GET["id"])){
     function saveEdit(){
       //boh
     }
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
   </script>
 
 </head>
@@ -106,6 +118,7 @@ if(isset($_GET["id"])){
 
     <header style="margin-top: 20px; margin-bottom: 20px;">
       <h4 class="animated bounceIn"><b><?php echo $azienda["ragione_sociale"]; ?></b></h4>
+<<<<<<< HEAD
       <h5 class="animated bounceIn delay-500ms"><b>Tipologia:</b> <?php echo $azienda["tipo"]; ?></h5>
       <button class="modify edit-button" onClick="startEdit()">
         <i class="material-icons">mode_edit</i>
@@ -128,6 +141,20 @@ if(isset($_GET["id"])){
         <div class="row">
           <div class="col s12">
             <h4>ANAGRAFICA AZIENDALE</i></h4>
+=======
+      <h5 class="animated bounceIn"><b>Tipologia:</b> <?php echo $azienda["tipo"]; ?></h5>
+    </header>
+
+    <div class="divider" style="margin-bottom: 1rem;"></div>
+
+    <div class="row">
+      <div class="col s10 offset-s1 yellow lighten-3" style="border-radius: 10px; padding-top: 1rem; padding-bottom: 1rem;">
+
+        <!-- Anagrafica: title -->
+        <div class="row">
+          <div class="col s12">
+            <h4>Anagrafica</h4>
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -139,6 +166,7 @@ if(isset($_GET["id"])){
           </div>
         </div>
         <div class="row">
+<<<<<<< HEAD
           <div class="col s4 m2 offset-m1">
             <p><b>Indirizzo:</b></p>
           </div>
@@ -172,6 +200,41 @@ if(isset($_GET["id"])){
           </div>
           <div class="col s8 m3">
             <p class="toEdit"><?php echo $azienda["cap"] ?></p>
+=======
+          <div class="col s2 offset-s1">
+            <p><b>Indirizzo:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["indirizzo"] ?></p>
+          </div>
+          <div class="col s2">
+            <p><b>Comune:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["comune"] ?></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2 offset-s1">
+            <p><b>Provincia:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["provincia"] ?></p>
+          </div>
+          <div class="col s2">
+            <p><b>Nazione:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["nazione"] ?></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2 offset-s1">
+            <p><b>CAP:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["cap"] ?></p>
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -183,6 +246,7 @@ if(isset($_GET["id"])){
           </div>
         </div>
         <div class="row">
+<<<<<<< HEAD
           <div class="col s4 m2 offset-m1">
             <p><b>Telefono:</b></p>
           </div>
@@ -212,6 +276,27 @@ if(isset($_GET["id"])){
               <?php
             }
             ?>
+=======
+          <div class="col s2 offset-s1">
+            <p><b>Telefono:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["telefono"] ?></p>
+          </div>
+          <div class="col s2">
+            <p><b>E-Mail:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["email"] ?></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2 offset-s1">
+            <p><b>Sito web:</b></p>
+          </div>
+          <div class="col s3">
+            <p><a class="black-text tooltipped" data-position="bottom" data-tooltip="Clicca per aprire!" href="http://<?php echo $azienda["sito"] ?>" target="_blank"><?php echo $azienda["sito"] ?></a></p>
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -228,7 +313,11 @@ if(isset($_GET["id"])){
               <?php
               $indirizzi = getIndirizziStudio($azienda["id"]);
               foreach($indirizzi as $i){
+<<<<<<< HEAD
                 echo "<li class=\"collection-item yellow lighten-4\">· ". $i["titolo"] ."</li>";
+=======
+                echo "<li class=\"collection-item yellow lighten-3\">· ". $i["titolo"] ."</li>";
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
               }
               ?>
             </ul>
@@ -236,6 +325,7 @@ if(isset($_GET["id"])){
         </div>
         <div class="divider yellow darken-3"></div>
 
+<<<<<<< HEAD
         <!-- Mansioni -->
         <div class="row">
           <div class="col s12">
@@ -249,6 +339,8 @@ if(isset($_GET["id"])){
         </div>
         <div class="divider yellow darken-3"></div>
 
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
         <!-- Informazioni utili -->
         <div class="row">
           <div class="col s12">
@@ -256,6 +348,7 @@ if(isset($_GET["id"])){
           </div>
         </div>
         <div class="row">
+<<<<<<< HEAD
           <div class="col s4 m2 offset-m1">
             <p><b>N° Dipendenti:</b></p>
           </div>
@@ -281,6 +374,33 @@ if(isset($_GET["id"])){
           </div>
           <div class="col s8 m3">
             <p id="descrizioneAteco"></p>
+=======
+          <div class="col s2 offset-s1">
+            <p><b>N° Dipendenti:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["n_dipendenti"] ?></p>
+          </div>
+          <div class="col s2">
+            <p><b>Data Convenzione:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["data_convenzione"] ?></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2 offset-s1">
+            <p><b>Codice ateco:</b></p>
+          </div>
+          <div class="col s3">
+            <p><?php echo $azienda["cod_ateco"] ?></p>
+          </div>
+          <div class="col s2">
+            <p><b>Descrizione ateco:</b></p>
+          </div>
+          <div class="col s3">
+            <p><i>Funzione da implementare</i></p>
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
           </div>
         </div>
       </div>

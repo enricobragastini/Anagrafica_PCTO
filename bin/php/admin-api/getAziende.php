@@ -26,11 +26,17 @@ if(isset($_POST["filters"])){
       $query .= " AND ";
       $i++;
     }
+<<<<<<< HEAD
   }
 }
 
 $query .= " ORDER BY ragione_sociale ASC";
 
+=======
+    // echo "___".$query."___";
+  }
+}
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 echo json_encode(getAziendeBasic($query));
 
 

@@ -59,7 +59,10 @@ function getUserDeta($username){
 }
 
 function getAziendeBasic($query){
+<<<<<<< HEAD
   // Funzione che recupera dal db le informazioni richieste per la tabella admin
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
   $conn = dbConnect();
   try {
     $stmt = $conn->prepare($query);
@@ -71,11 +74,14 @@ function getAziendeBasic($query){
   }
 }
 
+<<<<<<< HEAD
 function startsWith($haystack, $needle){
   $length = strlen($needle);
   return (substr($haystack, 0, $length) === $needle);
 }
 
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 function getAziendaData($id){
   $query = "SELECT * FROM aziende WHERE aziende.id=?";
   $conn = dbConnect();
@@ -83,6 +89,7 @@ function getAziendaData($id){
     $stmt = $conn->prepare($query);
     $stmt->execute(array($id));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+<<<<<<< HEAD
     foreach ($result[0] as $key => $value) {
       if(is_null($value)){
         $result[0][$key] = "N/A";
@@ -96,6 +103,8 @@ function getAziendaData($id){
         $result[0]["sito"] = str_replace("https://", "", $result[0]["sito"]);
       }
     }
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
     return $result[0];
   } catch(PDOException $ex) {
     return false;
@@ -115,6 +124,7 @@ function getIndirizziStudio($id_azienda){
   }
 }
 
+<<<<<<< HEAD
 function countAziende(){
   $query = "SELECT count(ragione_sociale) tot_aziende from aziende";
   $conn = dbConnect();
@@ -141,4 +151,6 @@ function getMansioni($id_azienda){
   }
 }
 
+=======
+>>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
 ?>
