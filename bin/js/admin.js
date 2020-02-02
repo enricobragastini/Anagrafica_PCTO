@@ -1,16 +1,16 @@
 function detectMobile() {
-  if(window.innerWidth <= 800 || window.innerHeight <= 600
-   || navigator.userAgent.match(/Android/i)
-   || navigator.userAgent.match(/webOS/i)
-   || navigator.userAgent.match(/iPhone/i)
-   || navigator.userAgent.match(/iPad/i)
-   || navigator.userAgent.match(/iPod/i)
-   || navigator.userAgent.match(/BlackBerry/i)
-   || navigator.userAgent.match(/Windows Phone/i)){
-  return true;
-} else {
-  return false;
-}
+  if((window.innerWidth <= 700 && window.innerHeight <= 600)
+  || navigator.userAgent.match(/Android/i)
+  || navigator.userAgent.match(/webOS/i)
+  || navigator.userAgent.match(/iPhone/i)
+  || navigator.userAgent.match(/iPad/i)
+  || navigator.userAgent.match(/iPod/i)
+  || navigator.userAgent.match(/BlackBerry/i)
+  || navigator.userAgent.match(/Windows Phone/i)){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function setGridBySize(){
@@ -30,28 +30,60 @@ function setGridBySize(){
   }
 }
 
+// Showing startup banner mechanism with cookies
+$(document).ready(function(){
+  if($.cookie("show_startup_banner") != null){
+    $("#adminAlert").hide();
+  } else {
+    $("#adminAlert").show();
+  }
+});
+
 // Alert closing mechanism
 $(document).ready(function(){
   $("#closeAlertIcon").click(function(){
-    $(this).parent().addClass("animated fadeOut");
+    $(this).parent().addClass("animated zoomOut");
     document.getElementById("adminAlert").addEventListener("animationend", function(){
       $(this).hide();
+      $.cookie("show_startup_banner", "false");
     });
   });
 });
 
+// counter aziende
+$(document).ready(function(){
+  $('.counter').each(function() {
+    var $this = $(this),
+    countTo = $this.attr('data-count');
+    $({ countNum: $this.text()}).animate({
+      countNum: countTo
+    },
+    {
+      duration: 1500,
+      easing:'linear',
+      step: function() {
+        $this.text(Math.floor(this.countNum));
+      },
+      complete: function() {
+        $this.text(this.countNum);
+      }
+    });
+  });
+});
+
+// JsGrid loaing
 $(document).ready(function(){
   $("#jsGrid").jsGrid({
     width: "100%",
 
-    inserting: true,
-    editing: true,
-    deleting: false,
-    sorting: true,
-    paging: true,
-    autoload: true,
-    selecting: true,
-    filtering: true,
+    inserting:  true,
+    editing:    true,
+    deleting:   false,
+    sorting:    true,
+    paging:     true,
+    autoload:   true,
+    selecting:  true,
+    filtering:  true,
 
     controller: {
       loadData: function(filter) {
@@ -95,6 +127,8 @@ $(document).ready(function(){
       { name: "control", type: "control", align: "center", width: "10%"}
     ]
   });
+
+  var instances = M.Tooltip.init(document.querySelectorAll('.tooltipped'), {  margin: 10  });
 
   window.onresize = function(){
     setGridBySize();

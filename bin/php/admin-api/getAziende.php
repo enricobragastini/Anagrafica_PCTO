@@ -29,6 +29,8 @@ if(isset($_POST["filters"])){
   }
 }
 
+$query .= " ORDER BY ragione_sociale ASC";
+
 echo json_encode(getAziendeBasic($query));
 
 

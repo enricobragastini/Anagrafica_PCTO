@@ -59,6 +59,7 @@ function getUserDeta($username){
 }
 
 function getAziendeBasic($query){
+  // Funzione che recupera dal db le informazioni richieste per la tabella admin
   $conn = dbConnect();
   try {
     $stmt = $conn->prepare($query);
@@ -109,6 +110,19 @@ function getIndirizziStudio($id_azienda){
     $stmt->execute(array($id_azienda));
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
+  } catch(PDOException $ex) {
+    return false;
+  }
+}
+
+function countAziende(){
+  $query = "SELECT count(ragione_sociale) tot_aziende from aziende";
+  $conn = dbConnect();
+  try {
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array());
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result[0]["tot_aziende"];
   } catch(PDOException $ex) {
     return false;
   }

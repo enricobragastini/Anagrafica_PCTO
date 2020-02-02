@@ -24,6 +24,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
 
   <!-- Custom CSS (parametro con numero random per forzare il reload) -->
   <link type="text/css" rel="stylesheet" href="css/mystyle.css?<?php echo rand(0, 10000); ?>"  media="screen,projection"/>
@@ -41,6 +42,12 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/png" href="img/business.png"/>
+
+  <script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+
+  });
+  </script>
 
 </head>
 <body class="">
@@ -65,15 +72,17 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 
     <div class="divider"></div>
 
-    <div class="row animated fadeIn delay-500ms" id="adminAlert" style="margin-top: 1rem;">
-      <div class="col s10 offset-s1">
-        <div class="card-panel white-text" style="background-color: #232f34">
-          <i class="material-icons" id="closeAlertIcon" style="float: right; display: block; cursor: pointer;">close</i>
+    <div class="row animated fadeIn delay-500ms" id="adminAlert" style="margin-top: 1rem; display: none;">
+      <div class="col s12 m10 offset-m1">
+        <div class="card-panel white-text" style="background-color: #232f34; padding: 18px;">
+          <i class="material-icons tooltipped" data-position="top" data-tooltip="Chiudi e non mostrare più" id="closeAlertIcon" style="float: right; display: block; cursor: pointer;">close</i>
           <h6 style="margin: 0px; margin-bottom: 4px; display: block">Ti presentiamo la pagina Admin!</h6>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Qui puoi vedere un riassunto di tutte le aziende con cui la nostra scuola collabora.<br>Puoi usare la seguente tabella per cercare le aziende, aggiungerne delle nuove o eliminarle.</p>
         </div>
       </div>
     </div>
+
+    <h6 class="animated fadeIn delay-500ms"><i>tot. aziende registrate: <b><span class="counter" data-count="<?php echo countAziende(); ?>">0</span></b></i></h6>
 
     <div class="row" style="margin-top: 1rem; margin-bottom: 1rem;">
       <div class="col s12">
@@ -91,5 +100,6 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
       <p class="white-text">&copy; 5BI 2019/2020<br>Enrico Bragastini & Loris Pesarin</p>
     </div>
   </div>
+
 </body>
 </html>

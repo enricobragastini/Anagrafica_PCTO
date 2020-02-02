@@ -31,8 +31,8 @@ if(isset($_GET["id"])){
   <!-- Custom CSS (parametro con numero random per forzare il reload) -->
   <link type="text/css" rel="stylesheet" href="css/mystyle.css?<?php echo rand(0, 10000); ?>"  media="screen,projection"/>
 
-  <!-- Custom Admin Javascript -->
-  <!-- <script src="js/admin.js" charset="utf-8"></script> -->
+  <!-- Custom Focus Javascript -->
+  <script src="js/focusAzienda.js?<?php echo rand(0, 10000); ?>" charset="utf-8"></script>
 
   <!-- JsGrid -->
   <link type="text/css" rel="stylesheet" href="css/lib/jsgrid.css"  media="screen,projection"/>
@@ -60,6 +60,31 @@ if(isset($_GET["id"])){
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
   });
+  <?php
+  if(isset($_GET["id"])){
+    echo "var aziendaId = " . $_GET["id"] . ";";
+  }
+  ?>
+  </script>
+  <!-- Test script for edit -->
+  <script type="text/javascript">
+  //si verifica un bug nel caso in cui in uno dei campi é presente un apice ad esempio in EVIT S.R.L.
+  //inoltre non so come far tornare il testo originale nel caso in cui si annulla la modifica
+    function startEdit(){
+      $('.toEdit').each(function() {
+          $(this).replaceWith( "<input class='toEdit' type='text' value='" + $(this).html() + "''>" );
+        });
+    }
+
+    function undoEdit(){
+      $('.toEdit').each(function() {
+          $(this).replaceWith( "<p class='toEdit'>" + this.value + "</p>" );
+        });
+    }
+
+    function saveEdit(){
+      //boh
+    }
   </script>
 
 </head>
@@ -82,16 +107,27 @@ if(isset($_GET["id"])){
     <header style="margin-top: 20px; margin-bottom: 20px;">
       <h4 class="animated bounceIn"><b><?php echo $azienda["ragione_sociale"]; ?></b></h4>
       <h5 class="animated bounceIn delay-500ms"><b>Tipologia:</b> <?php echo $azienda["tipo"]; ?></h5>
+      <button class="modify edit-button" onClick="startEdit()">
+        <i class="material-icons">mode_edit</i>
+      </button>
+      <button class="undo edit-button" onClick="undoEdit()">
+        <i class="material-icons">cancel</i>
+      </button>
+      <button class="save edit-button" onClick="saveEdit()">
+        <i class="material-icons">save</i>
+      </button>
     </header>
+
 
     <div class="divider" style="margin-bottom: 1rem;"></div>
 
+
     <div class="row animated fadeIn delay-500ms">
-      <div class="col s12 m10 offset-m1 yellow lighten-3" style="border: 3px solid #f9aa33; border-radius: 4px; padding-top: 1rem; padding-bottom: 1rem;">
+      <div class="col s12 m10 offset-m1 yellow lighten-4" style="border: 3px solid #f9aa33; border-radius: 4px; padding-top: 1rem; padding-bottom: 1rem;">
         <!-- Anagrafica: title -->
         <div class="row">
           <div class="col s12">
-            <h4>Anagrafica</h4>
+            <h4>ANAGRAFICA AZIENDALE</i></h4>
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -107,13 +143,13 @@ if(isset($_GET["id"])){
             <p><b>Indirizzo:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["indirizzo"] ?></p>
+            <p class="toEdit"><?php echo $azienda["indirizzo"] ?></p>
           </div>
           <div class="col s4 m2">
             <p><b>Comune:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["comune"] ?></p>
+            <p class="toEdit"><?php echo $azienda["comune"] ?></p>
           </div>
         </div>
         <div class="row">
@@ -121,13 +157,13 @@ if(isset($_GET["id"])){
             <p><b>Provincia:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["provincia"] ?></p>
+            <p class="toEdit"><?php echo $azienda["provincia"] ?></p>
           </div>
           <div class="col s4 m2">
             <p><b>Nazione:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["nazione"] ?></p>
+            <p class="toEdit"><?php echo $azienda["nazione"] ?></p>
           </div>
         </div>
         <div class="row">
@@ -135,7 +171,7 @@ if(isset($_GET["id"])){
             <p><b>CAP:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["cap"] ?></p>
+            <p class="toEdit"><?php echo $azienda["cap"] ?></p>
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -151,13 +187,13 @@ if(isset($_GET["id"])){
             <p><b>Telefono:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["telefono"] ?></p>
+            <p class="toEdit"><?php echo $azienda["telefono"] ?></p>
           </div>
           <div class="col s4 m2">
             <p><b>E-Mail:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["mail"] ?></p>
+            <p class="toEdit"><?php echo $azienda["mail"] ?></p>
           </div>
         </div>
         <div class="row">
@@ -168,11 +204,11 @@ if(isset($_GET["id"])){
             <?php
             if($azienda["sito"] != "N/A"){
               ?>
-              <p><a class="black-text tooltipped" data-position="bottom" data-tooltip="Clicca per aprire!" href="//<?php echo $azienda["sito"] ?>" target="_blank"><?php echo $azienda["sito"] ?></a></p>
+              <p><a class="black-text tooltipped" data-position="bottom" data-tooltip="Clicca per aprire!" href="//<?php echo $azienda["sito"] ?>" target="_blank" class="toEdit"><?php echo $azienda["sito"] ?></a></p>
               <?php
             } else {
               ?>
-              <p><a class="black-text"><?php echo $azienda["sito"] ?></a></p>
+              <p class="toEdit"><a class="black-text"><?php echo $azienda["sito"] ?></a></p>
               <?php
             }
             ?>
@@ -192,7 +228,7 @@ if(isset($_GET["id"])){
               <?php
               $indirizzi = getIndirizziStudio($azienda["id"]);
               foreach($indirizzi as $i){
-                echo "<li class=\"collection-item yellow lighten-3\">· ". $i["titolo"] ."</li>";
+                echo "<li class=\"collection-item yellow lighten-4\">· ". $i["titolo"] ."</li>";
               }
               ?>
             </ul>
@@ -207,25 +243,8 @@ if(isset($_GET["id"])){
           </div>
         </div>
         <div class="row center">
-          <div class="col s10 offset-s1 center">
-            <table class="striped centereds responsive-table highlight">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Titolo</th>
-                  <th>Descrizione</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach (getMansioni($azienda["id"]) as $mansione): ?>
-                  <tr>
-                    <td><?php echo utf8_encode($mansione["id"]); ?></td>
-                    <td><?php echo utf8_encode($mansione["titolo"]); ?></td>
-                    <td><?php echo utf8_encode($mansione["descrizione"]); ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+          <div class="col s10 offset-s1 m8 offset-m2 center">
+            <table class="centered highlight" id="mansioniTable"></table>
           </div>
         </div>
         <div class="divider yellow darken-3"></div>
@@ -241,13 +260,13 @@ if(isset($_GET["id"])){
             <p><b>N° Dipendenti:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["n_dipendenti"] ?></p>
+            <p class="toEdit"><?php echo $azienda["n_dipendenti"] ?></p>
           </div>
           <div class="col s4 m2">
             <p><b>Data Convenzione:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["data_convenzione"] ?></p>
+            <p class="toEdit"><?php echo $azienda["data_convenzione"] ?></p>
           </div>
         </div>
         <div class="row">
@@ -255,13 +274,13 @@ if(isset($_GET["id"])){
             <p><b>Codice ateco:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><?php echo $azienda["cod_ateco"] ?></p>
+            <p id="codiceAteco"><?php echo $azienda["cod_ateco"] ?></p>
           </div>
           <div class="col s4 m2">
             <p><b>Descrizione ateco:</b></p>
           </div>
           <div class="col s8 m3">
-            <p><i>Funzione da implementare</i></p>
+            <p id="descrizioneAteco"></p>
           </div>
         </div>
       </div>

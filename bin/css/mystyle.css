@@ -105,3 +105,24 @@ a.brand-logo{
 button{
   background-color: #1b1b1b !important;
 }
+.edit-button{
+  width:48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+}
+.modify{
+  background-color: #f9aa33 !important;
+  position: relative;
+    right: 42%;
+}
+.undo{
+  background-color: #e53935 !important;
+  position: relative;
+  right: 40%;
+}
+.save{
+  background-color: #757de8 !important;
+  position: relative;
+  right: 38%;
+}
