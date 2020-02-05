@@ -27,7 +27,11 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 <<<<<<< HEAD
   <script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
 =======
+<<<<<<< HEAD
+  <script src="js/lib/jquery.cookie.js" charset="utf-8"></script>
+=======
 >>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
+>>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f
 
   <!-- Custom CSS (parametro con numero random per forzare il reload) -->
   <link type="text/css" rel="stylesheet" href="css/mystyle.css?<?php echo rand(0, 10000); ?>"  media="screen,projection"/>
@@ -47,14 +51,20 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
   <link rel="shortcut icon" type="image/png" href="img/business.png"/>
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f
   <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
 
   });
   </script>
 
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
+>>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f
 </head>
 <body class="">
   <!-- NavBar -->
@@ -82,6 +92,15 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
     <div class="row animated fadeIn delay-500ms" id="adminAlert" style="margin-top: 1rem; display: none;">
       <div class="col s12 m10 offset-m1">
         <div class="card-panel white-text" style="background-color: #232f34; padding: 18px;">
+          <i class="material-icons" id="closeAlertIcon" style="float: right; display: block; cursor: pointer;">close</i>
+          <h6 style="margin: 0px; margin-bottom: 4px; display: block">Ti presentiamo la pagina Admin!</h6>
+          <p>Qui puoi vedere un riassunto di tutte le aziende con cui la nostra scuola collabora.<br>Puoi usare la seguente tabella per cercare le aziende, aggiungerne delle nuove o eliminarle.</p>
+        </div>
+=======
+<<<<<<< HEAD
+    <div class="row animated fadeIn delay-500ms" id="adminAlert" style="margin-top: 1rem; display: none;">
+      <div class="col s12 m10 offset-m1">
+        <div class="card-panel white-text" style="background-color: #232f34; padding: 18px;">
           <i class="material-icons tooltipped" data-position="top" data-tooltip="Chiudi e non mostrare più" id="closeAlertIcon" style="float: right; display: block; cursor: pointer;">close</i>
           <h6 style="margin: 0px; margin-bottom: 4px; display: block">Ti presentiamo la pagina Admin!</h6>
           <p>Qui puoi vedere un riassunto di tutte le aziende con cui la nostra scuola collabora.<br>Puoi usare la seguente tabella per cercare le aziende, aggiungerne delle nuove o eliminarle.</p>
@@ -97,8 +116,19 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 >>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
       <div class="col s12">
         <div id="jsGrid" class="animated fadeIn delay-500ms"></div>
+>>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f
       </div>
     </div>
+
+    <div id="pageContent">
+      <h6 class="animated fadeIn delay-500ms"><i>tot. aziende registrate: <b><span class="counter" data-count="<?php echo countAziende(); ?>">0</span></b></i></h6>
+      <div class="row" style="margin-top: 1rem; margin-bottom: 1rem;">
+        <div class="col s12">
+          <div id="jsGrid" class="animated fadeIn delay-500ms"></div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="divider"></div>
 
@@ -113,6 +143,10 @@ if(!isset($_SESSION['username']) || !isset($_SESSION["permissions"]) || $_SESSIO
 <<<<<<< HEAD
 
 =======
+<<<<<<< HEAD
+
+=======
 >>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
+>>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f
 </body>
 </html>
