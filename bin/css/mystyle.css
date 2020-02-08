@@ -1,112 +1,3 @@
-<<<<<<< HEAD
-html{
-  height: 100%;
-}
-body{
-   /*font-family: 'Montserrat', sans-serif;*/
-  height: 100%;
-  margin: 0;
-  background-color: #344955
-  /* background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-image: linear-gradient(to top right, #46a049, #95d097); */
-}
-.box {
-  margin: 0 auto;
-  max-width: 1300px;
-  width: 96%;
-  border-radius: 8px !important;
-}
-@media only screen and (min-width: 601px) {
-  .box {
-    width: 98%;
-  }
-}
-@media only screen and (min-width: 993px) {
-  .box {
-    width: 98%;
-  }
-}
-.green{
-  background-color: #00701a !important;
-}
-.row{
-  margin-bottom: 0px !important;
-}
-nav{
-  background-color: #232f34 !important;
-  border-bottom: 4px solid #f9aa33 !important;
-  color: white;
-}
-.dato-azienda{
-  text-align: left !important;
-}
-a.brand-logo{
-  color: #ffffff !important;
-}
-#content{
-  padding: 5px;
-  margin-top: 20px;
-  margin-bottom: 10px;\
-}
-
-/* --------------------- Text Inputs - Form style ------------------------- */
-* label color */
-.input-field label {
-  color: #1b1b1b !important;
-}
-/* label focus color */
-.input-field input[type="text"]:focus + label {
-  color: #1b1b1b !important;
-}
-/* label focus color */
-.input-field input[type="password"]:focus + label {
-  color: #1b1b1b !important;
-}
-/* label underline focus color */
-.input-field input[type=text]:focus {
-  border-bottom: 1px solid #1b1b1b !important;
-  box-shadow: 0 1px 0 0 #1b1b1b !important;
-}
-.input-field input[type=password]:focus {
-  border-bottom: 1px solid #1b1b1b !important;
-  box-shadow: 0 1px 0 0 #1b1b1b !important;
-}
-/* valid color */
-.input-field input[type=text].valid {
-  border-bottom: 1px solid #1b1b1b !important;
-  box-shadow: 0 1px 0 0 #1b1b1b !important;
-}
-/* invalid color */
-.input-field input[type=text].invalid {
-  border-bottom: 1px solid #000;
-  box-shadow: 0 1px 0 0 #000;
-}
-/* icon prefix focus color */
-.input-field .prefix.active {
-  color: #1b1b1b !important;
-}
-
-.input-field input[type=text].invalid {
-  border-bottom: 1px solid red;
-  box-shadow: 0 1px 0 0 red;
-}
-
-#jsGrid{
-  border-radius: 8px !important;
-  border: 1px solid grey;
-}
-#jsGrid > div.jsgrid-grid-header.jsgrid-header-scrollbar > table > tr.jsgrid-header-row{
-  background-color: #6d6d6d !important;
-}
-.jsgrid-cell {
-    overflow: hidden !important;
-}
-
-button{
-  background-color: #1b1b1b !important;
-}
-=======
 html{
   height: 100%;
 }
@@ -154,11 +45,7 @@ a.brand-logo{
 }
 #content{
   padding: 5px;
-<<<<<<< HEAD
   margin-top: 20px;
-=======
-  margin-top: 50px;
->>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
   margin-bottom: 10px;\
 }
 
@@ -217,29 +104,13 @@ a.brand-logo{
 
 button{
   background-color: #1b1b1b !important;
-<<<<<<< HEAD
 }
-.edit-button{
-  width:48px;
-  height: 48px;
-  border: none;
-  border-radius: 50%;
+
+div.video-container iframe {
+  height: 100%;
+  width: 100%;
 }
-.modify{
-  background-color: #f9aa33 !important;
-  position: relative;
-    right: 42%;
+
+div.row.map-container {
+  height: 130%
 }
-.undo{
-  background-color: #e53935 !important;
-  position: relative;
-  right: 40%;
-}
-.save{
-  background-color: #757de8 !important;
-  position: relative;
-  right: 38%;
-=======
->>>>>>> 9fc2f9b53fad2c036b05ab9e1a84cfc034800081
-}
->>>>>>> 32cb4bd6d4bf44266cf5fab89c05a667b0d3602f

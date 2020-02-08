@@ -1,32 +1,34 @@
-.editIcon{
-  visibility: hidden;
-}
-.unselectable {
-    -moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-.website-link{
-  color: black;
-}
-div.txt_col input{
-  text-align: center;
-  height: 2rem;
-  font-size: 15px;
-}
-div.divider.yellow{
-  height: 1.5px !important;
-}
-input::placeholder{
-  color: #666666;
-}
-div.txt_col input:focus{
-  border-bottom: 1px solid #f9aa33 !important;
-  box-shadow: 0 1px 0 0 #f9aa33 !important;
-}
-i.editIcon{
-  visibility: hidden;
-  cursor: pointer;
-}
+div.ico_col i.material-icons.editIcon{
+  visibility: visible;
+  opacity: 0.2;
+}
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.website-link{
+  color: black;
+}
+div.txt_col input{
+  text-align: center;
+  height: 2rem;
+  font-size: 15px;
+}
+div.divider.yellow{
+  height: 2px !important;
+  border-radius: 50% !important;
+}
+input::placeholder{
+  color: #666666;
+}
+div.txt_col input:focus{
+  border-bottom: 1px solid #f9aa33 !important;
+  box-shadow: 0 1px 0 0 #f9aa33 !important;
+}
+i.editIcon{
+  visibility: hidden;
+  cursor: pointer;
+}
