@@ -14,7 +14,7 @@ div.ico_col i.material-icons.editIcon{
 }
 div.txt_col input{
   text-align: center;
-  height: 2rem;
+  height: 3rem;
   font-size: 15px;
 }
 div.divider.yellow{
@@ -31,4 +31,7 @@ div.txt_col input:focus{
 i.editIcon{
   visibility: hidden;
   cursor: pointer;
+}
+#content{
+  padding-bottom: 20px;
 }

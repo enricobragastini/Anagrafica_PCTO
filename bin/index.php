@@ -23,10 +23,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
       if(loginCheck($myusername, $mypassword)){   // Credenziali corrette
         $_SESSION["username"] = $myusername;
-        $userData = getUserDeta($_SESSION["username"]);
+        $userData = getUserData($myusername);
         $_SESSION["permissions"] = $userData["permissions"];
         $_SESSION["nome"] = $userData["nome"];
         $_SESSION["cognome"] = $userData["cognome"];
+        $_SESSION["last_access"] = $userData["last_access"];
+        
+        updateLastAccess($_SESSION["username"]);
 
         if($_SESSION['permissions'] == "admin"){
           exit("admin.php");
@@ -99,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <h6>Inserisci le tue credenziali</h6>
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
-              <input id="username" type="text" name="username">
+              <input id="username" type="text" name="username" autocorrect="off" autocapitalize="off">
               <label for="username">Username</label>
             </div>
           </div>
@@ -113,9 +116,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="row">
             <div class="col s12">
               <p class="red-text" id="loginInfoMsg" style="margin: 3px;">&nbsp;</p>
-              <button class="btn waves-effect waves-light" type="submit" id="submitBtn" name="action" style="">ACCEDI
+              <button class="btn waves-effect waves-light" type="submit" id="submitBtn" name="action">ACCEDI
                 <i class="material-icons right">send</i>
               </button>
+              <div class="preloader-wrapper small active" id="submitSpinner" style="display: none;">
+                <div class="spinner-layer" style="border-color: #1b1b1b;">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -146,6 +160,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $("#password").addClass("invalid");
       }
       else {      // Se ho delle credenziali, le verifico con una chiamata ajax
+        $("#submitBtn").hide();
+        $("#submitSpinner").show();
+        $("#loginInfoMsg").html("");
         $.ajax({
           type: "POST",
           url: "index.php",
@@ -158,6 +175,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           success: function(risposta){
             if(risposta == "0"){    // Credenziali errate= error message
               $("#loginInfoMsg").html("Credenziali errate! Riprova!");
+              $("#submitSpinner").hide();
+              $("#submitBtn").show();
               $("#username").addClass("invalid");
               $("#password").addClass("invalid");
             }
@@ -166,7 +185,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
           },
           error: function(){        // Errore generico nel contattare il server
-            $("loginInfoMsg").html("<p class=\"red-text\">Ops... C'è stato un errore nel contattare il server</p>");
+            $("#submitSpinner").hide();
+            $("#submitBtn").show();
+            $("#loginInfoMsg").html("<p class=\"red-text\">Ops... C'è stato un errore nel contattare il server</p>");
           }
         });
       }

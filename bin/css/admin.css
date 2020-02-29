@@ -1,0 +1,13 @@
+@media only screen and (max-width: 992px) {
+  .modal {
+    width: 90% !important;
+  }
+  #content{
+    margin-top: 8px;
+  }
+}
+
+
+#pageContent{
+  padding-bottom: 1rem;
+}

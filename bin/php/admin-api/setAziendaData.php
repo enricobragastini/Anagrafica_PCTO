@@ -11,13 +11,13 @@ if(!isset($_POST["idAzienda"]) || !isset($_POST["attribute"]) || !isset($_POST["
 }
 
 
-$fields = array();    // Array che contiene i nomi degli attributi della tabella aziende
+$fields = array();                     // Array che contiene i nomi degli attributi della tabella aziende
 
 $query = "SHOW COLUMNS FROM aziende";  // Restituisce una vista con i campi "Field", "Type", "Null", "Key", "Default", "Extra"
 $conn = dbConnect();
 try {
   $stmt = $conn->prepare($query);
-  $stmt->execute(array($username, $password));
+  $stmt->execute(array());
   $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
   foreach($row as $field){
     if($field["Field"] == "id"){

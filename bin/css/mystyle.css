@@ -2,13 +2,10 @@ html{
   height: 100%;
 }
 body{
-   /*font-family: 'Montserrat', sans-serif;*/
+  /* font-family: 'Montserrat', sans-serif; */
   height: 100%;
   margin: 0;
-  background-color: #344955
-  /* background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-image: linear-gradient(to top right, #46a049, #95d097); */
+  background-color: #344955;
 }
 .box {
   margin: 0 auto;
@@ -37,6 +34,9 @@ nav{
   border-bottom: 4px solid #f9aa33 !important;
   color: white;
 }
+nav a.sidenav-trigger{
+  cursor: pointer;
+}
 .dato-azienda{
   text-align: left !important;
 }
@@ -47,6 +47,41 @@ a.brand-logo{
   padding: 5px;
   margin-top: 20px;
   margin-bottom: 10px;\
+}
+
+/* sidenav */
+#slide-out {
+  background-color: #344955 !important;
+  /* position: relative; */
+}
+a.sidenav-trigger{
+  display: block !important;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#logoutBtn{
+  width: inherit;
+  position: absolute;
+  bottom: 80px;
+}
+#logoutBtn a{
+  border-radius: 5px;
+}
+ul.sidenav li a {
+  color: white;
+}
+ul.sidenav li a i {
+  color: white !important;
+}
+ul.sidenav div.user-view div.background{
+  background-color: #f9aa33;
+}
+.sidenav .user-view .last-access {
+  display: block;
+  font-size: 12px;
+  line-height: 24px;
+  padding-bottom: 16px;
+  font-weight: 400;
 }
 
 /* --------------------- Text Inputs - Form style ------------------------- */
@@ -78,8 +113,16 @@ a.brand-logo{
 }
 /* invalid color */
 .input-field input[type=text].invalid {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid red;
   box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=text].invalid:focus {
+  border-bottom: 1px solid red !important;
+  box-shadow: 0 1px 0 0 red !important;
+}
+.input-field input[type=password].invalid:focus {
+  border-bottom: 1px solid red !important;
+  box-shadow: 0 1px 0 0 red !important;
 }
 /* icon prefix focus color */
 .input-field .prefix.active {
@@ -99,7 +142,7 @@ a.brand-logo{
   background-color: #6d6d6d !important;
 }
 .jsgrid-cell {
-    overflow: hidden !important;
+  overflow: hidden !important;
 }
 
 button{

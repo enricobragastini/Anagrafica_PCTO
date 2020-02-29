@@ -19,14 +19,12 @@ function setGridBySize(){
       $("#jsGrid").jsGrid("fieldOption", "comune", "visible", false);
       $("#jsGrid").jsGrid("fieldOption", "indirizzo", "visible", false);
       $("#jsGrid").jsGrid("fieldOption", "open", "width", "10%");
-      // $("#jsGrid").jsGrid("fieldOption", "control", "width", "10%");
     }
   }
   else {                  //Su dispositivo standard
     $("#jsGrid").jsGrid("fieldOption", "comune", "visible", true);
     $("#jsGrid").jsGrid("fieldOption", "indirizzo", "visible", true);
     $("#jsGrid").jsGrid("fieldOption", "open", "width", "3%");
-    // $("#jsGrid").jsGrid("fieldOption", "control", "width", "3%");
   }
 }
 
@@ -72,6 +70,7 @@ $(document).ready(function(){
   });
 });
 
+
 // JsGrid loaing
 $(document).ready(function(){
   $("#jsGrid").jsGrid({
@@ -104,6 +103,7 @@ $(document).ready(function(){
           },
           success: function(response) {
             setGridBySize();
+            window.rows = response;
             d.resolve(response);
           },
           error: function(e) {
@@ -114,16 +114,19 @@ $(document).ready(function(){
       }
     },
 
-    rowClick: function(item){},
+    rowClick: function(item){
+
+    },
 
     rowDoubleClick: function(e){
-      $("#jsGrid").jsGrid("editItem", e.event.currentTarget);
+      // $("#jsGrid").jsGrid("editItem", e.event.currentTarget);
     },
 
     fields: [
       { name: "ragione_sociale", title: "Ragione Sociale", type: "text", align: "center", autosearch: true},
       { name: "comune", title: "Comune", type: "text", align: "center", autosearch: true},
       { name: "indirizzo", title: "Indirizzo", type: "text", align: "center", autosearch: true},
+      // { name: "settore", title: "settore", type: "text", align: "center", autosearch: true},
       { name: "open", title: "Apri", width: "3%", align: "center", itemTemplate: function(value, item){
         var url = "focusAzienda.php?id=" + item.id;
         return $("<a class=\"btn-floating btn-large waves-effect waves-light grey darken-4 btn-small\" target=\"_blank\" href=\""+url+"\"><i class=\"material-icons\">open_in_new</i></a>");}
@@ -131,10 +134,39 @@ $(document).ready(function(){
     ]
   });
 
-  var instances = M.Tooltip.init(document.querySelectorAll('.tooltipped'), {  margin: 10  });
+  $("#jsGrid").jsGrid({
+    onDataLoaded: function(args) {
+      $("#selectAddress").trigger("change");
+    }
+  });
 
   window.onresize = function(){
     setGridBySize();
   }
 
+});
+
+// Ricerca per Indirizzo
+$(document).ready(function(){
+  // var rows = new Array();
+  $("#selectAddress").change(function(){
+    var search = $(this).val();
+    if(search.length == 0){
+      $("#jsGrid").jsGrid("option", "data", window.rows);
+    }
+
+    var nice_ones = new Array();
+    for(var i = 0; i<window.rows.length; i++){
+      var ok = true;
+      for(var j = 0; j<search.length; j++){
+        if(!window.rows[i].indirizzi_st.includes(parseInt(search[j]))){
+          ok = false;
+        }
+      }
+      if(ok){
+        nice_ones.push(window.rows[i]);
+      }
+    }
+    $("#jsGrid").jsGrid("option", "data", nice_ones);
+  });
 });

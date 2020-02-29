@@ -51,10 +51,8 @@ $(document).ready(function(){
   });
 });
 
-
-// Descrizione ateco
-$(document).ready(function(){
-  var codice = $("#cod_ateco").text();
+function updateDescrizioneAteco(){
+  var codice = $("#cod_ateco").text().replace("edit", "");
   if(codice != "N/A"){
     $.ajax({
       url: "https://search.codiceateco.it/atecosearch",
@@ -65,16 +63,26 @@ $(document).ready(function(){
         q: codice
       },
       success: function(data){
-        var descr = data.hits.hits[0]._source.sottocategoria.titolo;
-        $("#descrizioneAteco").text(descr);
+        if(data.hits.total == 0){
+          $("#descrizioneAteco").html($("<i>").addClass("red-text").text("Descrizione Ateco non trovata.\nRicontrolla il codice Ateco."));
+        } else {
+          var descr = data.hits.hits[0]._source.sottocategoria.titolo;
+          $("#descrizioneAteco").html($("<i>").text(descr));
+        }
       },
       error: function(e){
         console.log(e);
       }
     });
   } else {
-    $("#descrizioneAteco").append($("<i></i>").text("Codice Ateco mancante!"));
+    $("#descrizioneAteco").html($("<i>").addClass("red-text").text("Codice Ateco mancante!"));
   }
+}
+
+
+// Descrizione ateco
+$(document).ready(function(){
+  updateDescrizioneAteco();
 });
 
 
@@ -83,7 +91,7 @@ $(document).ready(function(){
   $("div.toEdit, a.toEdit").each(function(){
     var text = $(this).text();
     if(text == "" || text == null){
-      text == "N/A";
+      text = "N/A";
     }
     var row = $("<div></div>").addClass("row valign-wrapper");
     if($(this).attr("id") == "sito" && text != "N/A"){
@@ -109,8 +117,12 @@ $(document).ready(function(){
       $(this).text("check");
       var txt_col = $(this).parent().parent().find("div.txt_col");
       var text = txt_col.find("p").contents().not(txt_col.find("p").children()).text();
+      var descr = $(this).parent().parent().parent().parent().closest("div.col.s4.m2").text();
 
-      var input = $("<input></input>").attr("placeholder", "inserisci testo...");
+      var input = $("<input>").attr("placeholder", "inserisci " + descr);
+      if($(this).parent().parent().parent().attr("id") == "n_dipendenti"){
+        input.attr("type", "number");
+      }
       if(text != "N/A"){
         input.val(text)
       }
@@ -145,23 +157,60 @@ $(document).ready(function(){
           value: value
         },
         success: function(response){
-          if(response.status){
-            p.append($("<br>"))
-            var notification = $("<i></i>").addClass("green-text").text("Salvato correttamente!").css({"position": "absolute", "font-size": "12px", "margin": "0px", "opacity": "0"});
-            p.append(notification);
-            notification.animate({opacity: 1}, 250);
-            setTimeout(function(){
-              notification.animate({opacity: 0}, 250);
-              setTimeout(function(){
-                notification.remove();
-              }, 150);
-            }, 1200);
+          var disappear_time = 1400;
+          var notification = $("<i></i>").css({"position": "absolute", "font-size": "12px", "margin": "0px", "opacity": "0"});
+          if(response.status == true){
+            notification.addClass("green-text").text("Salvato correttamente!");
+          } else {
+            p.addClass("red-text");
+            notification.addClass("red-text").text("Errore nel salvataggio!");
+            disappear_time = 5000;
           }
+          p.append($("<br>"));
+          p.append(notification);
+          notification.animate({opacity: 1}, 250);
+          setTimeout(function(){
+            notification.animate({opacity: 0}, 250);
+            setTimeout(function(){
+              notification.remove();
+            }, 250);
+          }, disappear_time);
         }
       });
 
       $(this).text("edit");
       txt_col.html(p);
+
+      // Aggiorno la descrizione del codice ateco se necessario
+      if(txt_col.parent().parent().attr("id") == "cod_ateco"){
+        updateDescrizioneAteco();
+      }
+    }
+  });
+});
+
+
+// Azienda info loading
+$(document).ready(function(){
+  $.ajax({
+    url: "php/admin-api/getAziendaInfo.php",
+    type: "POST",
+    dataType: 'json',
+    data: {
+      idAzienda: aziendaId,
+    },
+    success: function(informazioni){
+      $()
+      for (var i = 0; i < informazioni.length; i++) {
+        var row = $("<div>").addClass("row");
+        var title = $("<div>").addClass("col s4 offset-s1").append($("<p>").text(informazioni[i].titolo).css({"text-align": "right", "font-weight": "bold"}));
+        var descr = $("<div>").addClass("col s6").append($("<p>").text(informazioni[i].descrizione).css({"text-align": "left"}));
+        row.append(title).append(descr);
+        $("#other_info").append(row);
+      }
+    },
+    error: function(e){
+
     }
   });
 });

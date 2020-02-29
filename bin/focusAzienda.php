@@ -57,30 +57,24 @@ if(isset($_GET["id"])){
   </style>
 
   <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.tooltipped');
-    var instances = M.Tooltip.init(elems);
-  });
-  <?php
-  if(isset($_GET["id"])){
-    echo "var aziendaId = " . $_GET["id"] . ";";
-  }
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.tooltipped');
+      var instances = M.Tooltip.init(elems);
+    });
+    <?php
+    if(isset($_GET["id"])){
+      echo "var aziendaId = " . $_GET["id"] . ";";
+    }
   ?>
   </script>
 
 </head>
 <body class="">
-  <!-- NavBar -->
-  <div class="navbar-fixed">
-    <nav>
-      <div class="box">
-        <div class="nav-wrapper white">
-          <a href="index.php" class="brand-logo left"><i class="material-icons">work</i>Speedy PCTO</a>
-          <a href="#" class="brand-logo right show-on-medium-and-up hide-on-small-only">ITI G. Marconi</a>
-        </div>
-      </div>
-    </nav>
-  </div>
+
+  <?php
+  include("navbar.php");
+  include("sidenav.php");
+  ?>
 
   <!-- Main content -->
 
@@ -155,57 +149,57 @@ if(isset($_GET["id"])){
         </div>
         <div class="row map-container">
           <div class="col m10 offset-m1 s12">
-              <div class="video-container">
-                <?php
-                $query = $azienda["indirizzo"] . " " . $azienda["comune"] . $azienda["cap"];
-                $query = urlencode($query);
-                ?>
-                <iframe id="gmap_canvas" align="center" src="https://maps.google.com/maps?q=<?php echo $query; ?>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>              </div>
+            <div class="video-container">
+              <?php
+              $query = urlencode($azienda["indirizzo"] . " " . $azienda["comune"] . " " . $azienda["cap"]);
+              ?>
+              <!-- Google Maps: per abilitare il satellite standard aggiungere &t=k al link -->
+              <iframe id="gmap_canvas" align="center" src="https://maps.google.com/maps?q=<?php echo $query; ?>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>              </div>
             </div>
-        </div>
-        <div class="divider yellow darken-3"></div>
+          </div>
+          <div class="divider yellow darken-3"></div>
 
-        <!-- Contatti -->
-        <div class="row">
-          <div class="col s12">
-            <h5>CONTATTI</h5>
+          <!-- Contatti -->
+          <div class="row">
+            <div class="col s12">
+              <h5>CONTATTI</h5>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4 m2 offset-m1">
-            <p class="right"><b>Telefono:</b></p>
+          <div class="row">
+            <div class="col s4 m2 offset-m1">
+              <p class="right"><b>Telefono:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="telefono"><?php echo $azienda["telefono"] ?></div>
+            </div>
+            <div class="col s4 m2">
+              <p class="right"><b>E-Mail:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="mail"><?php echo $azienda["mail"] ?></div>
+            </div>
           </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="telefono"><?php echo $azienda["telefono"] ?></div>
+          <div class="row">
+            <div class="col s4 m2 offset-m1">
+              <p class="right"><b>Sito web:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="sito"><a class="black-text"><?php echo $azienda["sito"] ?></a></div>
+            </div>
           </div>
-          <div class="col s4 m2">
-            <p class="right"><b>E-Mail:</b></p>
-          </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="mail"><?php echo $azienda["mail"] ?></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s4 m2 offset-m1">
-            <p class="right"><b>Sito web:</b></p>
-          </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="sito"><a class="black-text"><?php echo $azienda["sito"] ?></a></div>
-          </div>
-        </div>
-        <div class="divider yellow darken-3"></div>
+          <div class="divider yellow darken-3"></div>
 
-        <!-- Indirizzi studio -->
-        <div class="row">
-          <div class="col s12">
-            <h5>INDIRIZZI RICHIESTI</h5>
+          <!-- Indirizzi studio -->
+          <div class="row">
+            <div class="col s12">
+              <h5>INDIRIZZI RICHIESTI</h5>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s10 offset-s1">
-            <?php
-            $indirizzi = getIndirizziStudio($azienda["id"]);
-            ?>
+          <div class="row">
+            <div class="col s10 offset-s1">
+              <?php
+              $indirizzi = getIndirizziStudio($azienda["id"]);
+              ?>
               <?php
               if(count($indirizzi) > 0){
                 ?><ul class="collection"><?php
@@ -217,69 +211,81 @@ if(isset($_GET["id"])){
                 ?><p><i>Non sappiamo ancora niente sugli indirizzi richiesti da questa azienda...</p></i><?php
               }
               ?>
+            </div>
           </div>
-        </div>
-        <div class="divider yellow darken-3"></div>
+          <div class="divider yellow darken-3"></div>
 
-        <!-- Mansioni -->
-        <div class="row">
-          <div class="col s12">
-            <h5>MANSIONI ASSEGNATE</h5>
+          <!-- Mansioni -->
+          <div class="row">
+            <div class="col s12">
+              <h5>MANSIONI ASSEGNATE</h5>
+            </div>
           </div>
-        </div>
-        <div class="row center">
-          <div class="col s10 offset-s1 m8 offset-m2 center">
-            <table class="centered highlight" id="mansioniTable"></table>
+          <div class="row center">
+            <div class="col s10 offset-s1 m8 offset-m2 center">
+              <table class="centered highlight" id="mansioniTable"></table>
+            </div>
           </div>
-        </div>
-        <div class="divider yellow darken-3"></div>
+          <div class="divider yellow darken-3"></div>
 
-        <!-- Informazioni utili -->
-        <div class="row">
-          <div class="col s12">
-            <h5>INFORMAZIONI UTILI</h5>
+          <!-- Informazioni utili -->
+          <div class="row">
+            <div class="col s12">
+              <h5>INFORMAZIONI UTILI</h5>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4 m2 offset-m1">
-            <p class="right"><b>N° Dipendenti:</b></p>
+          <div class="row">
+            <div class="col s4 m2 offset-m1">
+              <p class="right"><b>N° Dipendenti:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="n_dipendenti"><?php echo $azienda["n_dipendenti"] ?></div>
+            </div>
+            <div class="col s4 m2">
+              <p class="right"><b>Data Convenzione:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="data_convenzione"><?php echo $azienda["data_convenzione"] ?></div>
+            </div>
           </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="n_dipendenti"><?php echo $azienda["n_dipendenti"] ?></div>
+          <div class="row">
+            <div class="col s4 m2 offset-m1">
+              <p class="right"><b>Codice ateco:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <div class="toEdit" id="cod_ateco"><?php echo $azienda["cod_ateco"] ?></div>
+            </div>
+            <div class="col s4 m2">
+              <p class="right"><b>Descrizione ateco:</b></p>
+            </div>
+            <div class="col s8 m3">
+              <p id="descrizioneAteco"></p>
+            </div>
           </div>
-          <div class="col s4 m2">
-            <p class="right"><b>Data Convenzione:</b></p>
+          <div class="divider yellow darken-3"></div>
+
+          <div class="row">
+            <div class="col s12">
+              <h5>ALTRE INFORMAZIONI</h5>
+            </div>
           </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="data_convenzione"><?php echo $azienda["data_convenzione"] ?></div>
+          <div class="row">
+            <div class="col s12 center">
+              <a class="btn-floating waves-effect waves-light green btn-small"><i class="material-icons">add</i></a>
+            </div>
+            <div class="col s12" id="other_info">
+
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s4 m2 offset-m1">
-            <p class="right"><b>Codice ateco:</b></p>
-          </div>
-          <div class="col s8 m3">
-            <div class="toEdit" id="cod_ateco"><?php echo $azienda["cod_ateco"] ?></div>
-          </div>
-          <div class="col s4 m2">
-            <p class="right"><b>Descrizione ateco:</b></p>
-          </div>
-          <div class="col s8 m3">
-            <p id="descrizioneAteco"></p>
-          </div>
+
         </div>
       </div>
     </div>
 
-    <div class="divider" style="margin-top: 1rem;"></div>
-
-    <h6><a href="php/logout.php">Logout</a></h6>
-  </div>
-
-  <div class="row center animated fadeInDown delay-1s">
-    <div class="col s12">
-      <p style="color: #ffffff">&copy; 5BI 2019/2020<br>Enrico Bragastini & Loris Pesarin</p>
+    <div class="row center animated fadeInDown delay-1s">
+      <div class="col s12">
+        <p style="color: #ffffff">&copy; 5BI 2019/2020<br>Enrico Bragastini & Loris Pesarin</p>
+      </div>
     </div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>

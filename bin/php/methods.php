@@ -1,7 +1,7 @@
 <?php
 
 define("DB_ADDRESS", "localhost");
-define("DB_USERNAME", "aziendepcto");
+define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
 define("DB_NAME", "my_aziendepcto");
 
@@ -35,6 +35,19 @@ function loginCheck($username, $password){
   }
 }
 
+function updateLastAccess($username){
+  // Funzione che verifica le credenziali sul database
+  $query = "UPDATE users SET last_access = NOW() WHERE username=?";
+  $conn = dbConnect();
+  try {
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array($username));
+    return true;
+  } catch(PDOException $ex) {
+    return false;
+  }
+}
+
 function getPermissions($username){
   // Funzione che restituise solo le credenziali di un utente
   $query = "SELECT permissions from users WHERE username=?";
@@ -49,15 +62,15 @@ function getPermissions($username){
   }
 }
 
-function getUserDeta($username){
+function getUserData($username){
   // Funzione che restituisce i dettagli di un utente
-  $query = "SELECT nome, cognome, permissions from users WHERE username=?";
+  $query = "SELECT nome, cognome, permissions, last_access from users WHERE username=?";
   $conn = dbConnect();
   try {
     $stmt = $conn->prepare($query);
     $stmt->execute(array($username));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row;
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result[0];
   } catch(PDOException $ex) {
     return false;
   }
@@ -158,6 +171,32 @@ function setAziendaValue($idAzienda, $attribute, $value){
     return ($stmt != false);
   } catch(PDOException $ex) {
     return $false;
+  }
+}
+
+function getAziendaOtherInfo($idAzienda){
+  $query = "SELECT i.id, i.titolo, i.descrizione FROM informazioni i JOIN aziende a ON i.id_azienda=a.id WHERE i.id_azienda=? ORDER BY i.id ASC";
+  $conn = dbConnect();
+  try {
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array($idAzienda));
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  } catch(PDOException $ex) {
+    return false;
+  }
+}
+
+function getElencoIndirizzi(){
+  $query = "SELECT * FROM indirizzi_studio";
+  $conn = dbConnect();
+  try {
+    $stmt = $conn->prepare($query);
+    $stmt->execute(array());
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  } catch(PDOException $ex) {
+    return false;
   }
 }
 
