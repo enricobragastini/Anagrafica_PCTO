@@ -1,0 +1,1 @@
+INSERT INTO aziende (id, ragione_sociale, tipo, comune, nazione, indirizzo, cap, sito) VALUES (622, "ISTITUTO COMPRENSIVO "A. CESARI"", "SCUOLA", "CASTEL D'AZZANO", "ITALIA", "VIA G. MARCONI, 76", "37060", "www.comprensivocesari.gov.it");
